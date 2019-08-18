@@ -1593,7 +1593,7 @@ var listAddressBooks = _co2['default'].wrap(regeneratorRuntime.mark(function cal
         responses = context$1$0.sent;
         addressBooks = responses.filter(function (res) {
           return true;
-          // iCloud doesn't return anything if this filter is active!
+          // Don't filter iCloud addressbooks
           //return typeof res.props.displayname === 'string';
         }).map(function (res) {
           debug('Found address book named ' + res.props.displayname + ',\n             props: ' + JSON.stringify(res.props));
