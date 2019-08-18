@@ -1,3 +1,5 @@
+var LoadedXMLHttpRequest = require('xmlhttprequest');
+
 /**
  * Polyfill from developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/find
  */
@@ -3341,7 +3343,11 @@ if (typeof self !== 'undefined' && 'XMLHttpRequest' in self) {
 } else {
   // Trick browserify into not loading XMLHttpRequest polyfill
   // since it is available in the platform (including web workers)
-  Native = require(false || 'xmlhttprequest').XMLHttpRequest;
+  try { 
+    Native = require(false || 'xmlhttprequest').XMLHttpRequest;
+  } catch(error) {
+    Native = LoadedXMLHttpRequest.XMLHttpRequest;
+  }
 }
 
 /**
