@@ -1507,6 +1507,14 @@ var Client = (function () {
       return contacts.deleteCard(card, options);
     }
   }, {
+    key: 'forceDeleteCard',
+    value: function forceDeleteCard(card) {
+      var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+      options.xhr = options.xhr || this.xhr;
+      return contacts.forceDeleteCard(card, options);
+    }
+  }, {
     key: 'syncAddressBook',
     value: function syncAddressBook(addressBook) {
       var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
@@ -1537,6 +1545,7 @@ Object.defineProperty(exports, '__esModule', {
 exports.createCard = createCard;
 exports.updateCard = updateCard;
 exports.deleteCard = deleteCard;
+exports.forceDeleteCard = forceDeleteCard;
 exports.syncAddressBook = syncAddressBook;
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
@@ -1721,6 +1730,20 @@ function updateCard(card, options) {
 
 function deleteCard(card, options) {
   return webdav.deleteObject(card.url, card.etag, options);
+}
+
+/**
+ * @param {dav.VCard} card target vcard object.
+ * @return {Promise} promise will resolve when the calendar has been deleted.
+ *
+ * Options:
+ *
+ *   (dav.Sandbox) sandbox - optional request sandbox.
+ *   (dav.Transport) xhr - request sender.
+ */
+
+function forceDeleteCard(card, options) {
+  return webdav.deleteObject(card.url, undefined, options);
 }
 
 /**
