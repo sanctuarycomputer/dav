@@ -3210,17 +3210,17 @@ var debug = require('./debug')('dav:webdav');
 
 function createObject(objectUrl, objectData, options) {
   var req = request.basic({ method: 'PUT', data: objectData, contentType: options.contentType });
-  return options.xhr.send(req, objectUrl, { sandbox: options.sandbox });
+  return options.xhr.send(req, encodeURI(objectUrl), { sandbox: options.sandbox });
 }
 
 function updateObject(objectUrl, objectData, etag, options) {
   var req = request.basic({ method: 'PUT', data: objectData, etag: etag, contentType: options.contentType });
-  return options.xhr.send(req, objectUrl, { sandbox: options.sandbox });
+  return options.xhr.send(req, encodeURI(objectUrl), { sandbox: options.sandbox });
 }
 
 function deleteObject(objectUrl, etag, options) {
   var req = request.basic({ method: 'DELETE', etag: etag });
-  return options.xhr.send(req, objectUrl, { sandbox: options.sandbox });
+  return options.xhr.send(req, encodeURI(objectUrl), { sandbox: options.sandbox });
 }
 
 function syncCollection(collection, options) {
